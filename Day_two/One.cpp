@@ -22,28 +22,37 @@ int main(){
             {
                 values.push_back(value);
             }
-
-            vector<int> update_values;
-            int checkSum[100007] = {0};
-
+            
+            int pos = 0, neg = 0, sum = 0;
             for(int i = 1; i < values.size(); i++)
             {
-                update_values.push_back(abs(values[i] - values[i - 1]));
-                checkSum[abs(values[i] - values[i - 1])]++;
-            }
-            int sum = 1;
-            for(int i = 0; i < update_values.size(); i++)
-            {
-                if(checkSum[update_values[i]] == 1)
+                int sign = values[i - 1] - values[i];
+                if (sign >= -3 && sign <= 3)
                 {
-                    sum = 0;
+                    if(sign > 0)
+                        pos++;
+                    else if(sign < 0)
+                        neg++;
+                    else if(sign == 0)
+                    {
+                        break;
+                    }
                 }
-            }  
+                else
+                {
+                    break;
+                }
+            }
+
+            if(pos == values.size() - 1 || neg == values.size() - 1)
+            {
+                sum++;
+            }
+
             ans += sum;
             getline(cin, input);
     }
 
     cout << ans;
-    // Incorrect/Low
     return 0;
 }
